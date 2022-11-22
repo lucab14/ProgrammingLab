@@ -8,11 +8,9 @@ class CsvFile():
     for line in file:
       elements= line.split(',')
       if elements[0]!='Date':
-        date= elements[0]
-        value=elements[1]
         values.append(elements)
 
-    return print(values[0:-1])
+    return print(values)
 
-file_csv=CsvFile('shampoo_sales.csv')
-file_csv.get_data()
+#file_csv=CsvFile('shampoo_sales.csv')
+#file_csv.get_data()

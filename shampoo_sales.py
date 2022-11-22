@@ -13,6 +13,6 @@ def sum_csv(file_name):
   return  sum(values)
 
 file_name= open('shampoo_sales.csv', 'r')
-print(sum_csv(file_name))
+#print(sum_csv(file_name))
 file_name.close()
 

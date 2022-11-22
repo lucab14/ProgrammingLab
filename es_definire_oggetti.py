@@ -12,5 +12,5 @@ class CSVFile():
     file.close()
     return print(values)
 
-file_csv=CsvFile('shampoo_sales.csv')
+file_csv=CSVFile('shampoo_sales.csv')
 file_csv.get_data()

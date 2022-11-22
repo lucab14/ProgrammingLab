@@ -9,7 +9,7 @@ class CSVFile():
       elements= line.split(',')
       if elements[0]!='Date':
         values.append(elements)
-
+    file.close()
     return print(values)
 
 file_csv=CsvFile('shampoo_sales.csv')

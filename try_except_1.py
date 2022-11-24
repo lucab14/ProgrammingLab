@@ -14,3 +14,19 @@ class CSVFile():
       return values
     except Exception as e:
       print('Errore {}'.format(e))
+
+
+class NumericalCSV(CSVFile):
+  lista=[]
+  lista=super().get_data()
+  try:
+    for item in lista:
+      float(item[1])
+  except ValueError as e:
+    print('Errore {}'.format(e))
+
+  except TypeError as e:
+    print('Errore di TIPO, il valore era di tipo {}'.format(e))
+
+  except Exception as e:
+    print('Errore {}'.format(e))

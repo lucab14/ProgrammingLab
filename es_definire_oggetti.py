@@ -10,6 +10,6 @@ class CSVFile():
       if elements[0]!='Date':
         values.append(elements)
     file.close()
-    return print(values)
+    return values
 
 

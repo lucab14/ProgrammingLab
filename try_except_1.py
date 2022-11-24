@@ -18,7 +18,7 @@ class CSVFile():
 
 class NumericalCSV(CSVFile):
   lista=[]
-  lista=super().get_data()
+  lista= super.get_data()
   try:
     for item in lista:
       float(item[1])

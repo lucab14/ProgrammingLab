@@ -9,10 +9,8 @@ def sum_csv(file_name):
       values.append(float(value))
 
 
-
+  file_name.close()
   return  sum(values)
 
-file_name= open('shampoo_sales.csv', 'r')
-print(sum_csv(file_name))
-file_name.close()
+
 

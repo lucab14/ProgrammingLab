@@ -8,23 +8,4 @@ def sum_csv(file):
 
   file.close()
   return sum(values)
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-#file="shampoo_sales.csv"
   

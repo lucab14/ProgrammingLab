@@ -10,8 +10,7 @@ def sum_csv(file):
   return sum(values)
 
 
-file=open('shampoo_sales.csv', 'r')
-print(sum_csv(file))
+
 
 
 

@@ -11,14 +11,25 @@ class CSVFile():
         if elements[0]!='Date':
           values.append(elements)
       file.close()
-      return values
     except Exception as e:
       print('Errore {}'.format(e))
+    
+    return values
 
 
 class NumericalCSV(CSVFile):
-  lista=[]
-  lista= super.get_data()
+
+  def __init__(self, file_name):
+    self.file_name = file_name
+  
+  def get_data(self):
+    list = []
+    list = super.get_data()
+    for little_list in list:
+      for 
+    
+  #lista=[]
+  #lista=super().get_data()
   for item in lista:
     try:
       float(item[1])
@@ -30,3 +41,7 @@ class NumericalCSV(CSVFile):
 
     except Exception as e:
       print('Errore {}'.format(e))
+
+
+#file_csv=NumericalCSV('shampoo_sales.csv')
+#print(file_csv)

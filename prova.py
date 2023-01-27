@@ -8,4 +8,7 @@ def sum_csv(file_name):
 
   file_name.close()
   return sum(values)
+
+file=open('shampoo_sales.csv', 'r')
+print(sum_csv(file))
   

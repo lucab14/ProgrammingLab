@@ -10,6 +10,3 @@ def sum_csv(file_name):
   my_file.close()
   return sum(values)
 
-file='shampoo_sales.csv'
-print(sum_csv(file))
-  

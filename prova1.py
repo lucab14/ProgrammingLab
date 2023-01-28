@@ -12,9 +12,9 @@ class CSVFile:
           data=elements[0]
           value=elements[1]
           lists.append([data, value])
-          file.close()
+        file.close()
     except Exception as e:
-      print('File inesistente. Errore {}'.format(e))
+      print('Errore {}'.format(e))
     return lists
 
     

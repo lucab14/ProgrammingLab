@@ -27,6 +27,3 @@ def sum_csv(file_name):
   list=convert_list(file)
   sum_file=sum_list(list)
   return sum_file
-
-nome='shampoo_sales.csv'
-print(sum_csv(nome))

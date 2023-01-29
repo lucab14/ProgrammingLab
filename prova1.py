@@ -16,28 +16,6 @@ class CSVFile:
         lists.append([data, value])
     file.close()
 
-    return lists
+    return lists  
 
-class NumericalCSVFile(CSVFile):
-  def get_data(self):
-    lista=[]
-    numeric=super().get_data()
-    for value in numeric:
-      newlist=[]
-      if value[0]:
-        newlist.append(value)    
-      else:
-        for item in value:
-          try:
-            valore=float(item)
-            lista.append(valore)
-          except Exception:
-            print('Errore di conversione')
-            break
-    return sum(lista)
-        
-    
-
-    
-
-file_name=NumericalCSVFile('shampoo_sales.csv')
+file_name=CSVFile('shampoo_sales.csv')

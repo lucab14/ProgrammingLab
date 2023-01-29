@@ -2,10 +2,10 @@ class ExamException:
   pass
 
 class MovingAverage:
-  def __init__(self, lenght):#len=2
+  def __init__(self, lenght):
     self.lenght=lenght
 
-  def compute(self, list_value): #[2,4,8,16]
+  def compute(self, list_value):
     lista_media=[]
     if not len(list_value):
       raise ExamException("Errore, lista valori vuota")
@@ -26,6 +26,3 @@ class MovingAverage:
     return lista_media
 
 
-moving_average=MovingAverage(2)
-result=moving_average.compute([2,4,8,16])
-print(result)

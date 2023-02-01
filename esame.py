@@ -20,11 +20,12 @@ class CSVFile:
       
       if elements[0]!='epoch':
         list_values.append(elements)
+
+    my_file.close()
     
     if not len(list_values):
       raise ExamException("Errore, lista vuota")
 
-    my_file.close()
     return list_values
 
 
@@ -35,7 +36,11 @@ class CSVTimeSeriesFile(CSVFile):
     parsed_list=[]
     
     for element in list_elements:
+      
+      #varaibile booleana utilizzata per inserire 
+      #un element nella parsed_list
       add_new= True
+      
       new_row=[]
       
       for index, column in enumerate(element):
@@ -45,21 +50,24 @@ class CSVTimeSeriesFile(CSVFile):
           try:
             new_row.append(int(column))
           
+          
+          #se non riesco a converitre il timestamp a int
+          #provo a convertirlo prima a floating point
           except:
-            
+          
             try:
               data=float(column)
               new_row.append(int(data))
-            
+  
             except:
               add_new=False
-              break #questo except serve per controllare input sporchi, come ad esempio stringhe non numeriche sulla colonna della data
+              break 
+        
         else:
           
           try:
             if len(new_row)<2:
               new_row.append(float(column))
-              add_new=True
           
           except:
             add_new=False
@@ -71,70 +79,79 @@ class CSVTimeSeriesFile(CSVFile):
     verified_list= self.verify_data(parsed_list)  
     return verified_list
 
-  def verify_data(self, data):
-    for i,day in enumerate(data):
+
+#metodo utilizzato per controllare che non siano presenti
+#timestamp duplicati e che siano ordinati
+  def verify_data(self, parsed_list):
+    
+    for i,hours in enumerate(parsed_list):
       
-      for j,next_day in enumerate(data):
+      for j,next_hours in enumerate(parsed_list):
         
-        if i!=j and day[0]==next_day[0]:
+        if i!=j and hours[0]==next_hours[0]:
           raise ExamException("Errore, valore duplicato")
         
-        if i<j and day[0]>next_day[0]:
+        if i<j and hours[0]>next_hours[0]:
           raise ExamException("Errore, lista disordinata")
 
-    return data
-    #controlla se ci sono duplicati o disordine fra le date
+    return parsed_list
 
-
+#funzione che calcola la differenza massima per giorno
 def compute_daily_max_difference(time_series):
-  verified_time_series=test(time_series)
-  list_h=[]
+  
+  sanitized_time_series=check_input(time_series)
+
+  #accumulatore di temperature divise per giorni
+  list_temp_day=[]
+  
+  #variabile utilizzata come indice di verified_time_series
   index=0
   
-  for epoch in verified_time_series:
-    epoch=time_series[index]
-    temp_list=[]
-    day_start_epoch=epoch[0]-(epoch[0]%86400)
+  for current_epoch in sanitized_time_series:
+    current_epoch = sanitized_time_series[index]
+    temp_list = []
+    day_start_epoch = current_epoch[0] - (current_epoch[0]%86400)
     
-    for lists in verified_time_series:
-      new_day_start_epoch=lists[0]-(lists[0]%86400)
+    for next_epoch in sanitized_time_series:
+      next_day_start_epoch = next_epoch[0] - (next_epoch[0]%86400)
       
-      if lists[0]>=epoch[0]:
-        if new_day_start_epoch==day_start_epoch:
-          temp_list.append(lists[1])
+      if next_epoch[0] >= current_epoch[0]:
+        if next_day_start_epoch == day_start_epoch:
+          temp_list.append(next_epoch[1])
           index+=1
         
         else:
           break  
     
-    list_h.append(temp_list)
+    list_temp_day.append(temp_list)
     
-    if index>len(verified_time_series)-1:
+    if index > len(sanitized_time_series)-1:
       break
-  # TEST PER VERIFICARE LA LIST_H SE ERA CORRETTA(ELIMINARE)
-  # for x in list_h:
-  #   print(x)
-  #   print('\n')
-  lista_finale=[]
+
+
+  list_max_difference_temp=[]
   
-  for temperature in list_h:
+  for temperature in list_temp_day:
     
     if len(temperature)>1:
-      differenza_max= max(temperature)-min(temperature)
-      lista_finale.append(differenza_max)
+      max_difference = max(temperature) - min(temperature)
+      list_max_difference_temp.append(max_difference)
     
     else:
-      lista_finale.append(None)
+      list_max_difference_temp.append(None)
   
-  return lista_finale
+  return list_max_difference_temp
 
 
-def test(ver_list):
+
+#funzione che controlla l'input di compute_daily_max_difference
+def check_input(check_list):
+  
   time_series=[]
-  if not isinstance(ver_list, list) or not len(ver_list):
+  if not isinstance(check_list, list) or not len(check_list):
     raise ExamException("Errore, lista vuota")
 
-  for row in ver_list:
+  for row in check_list:
     
     if type(row)!=list:
       continue
@@ -164,7 +181,7 @@ for element in time_series:
   print(element)
 
 lists=compute_daily_max_difference(time_series)
-#lists=compute_daily_max_difference([[None, 3.2],[2, 'x'], []])  
+#lists=compute_daily_max_difference([[8,12.7],[None, 3.2],[2, 'x'], []])  
 print('Escursioni termiche')
 i=1
 

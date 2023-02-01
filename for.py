@@ -26,3 +26,34 @@
 #         break
 #   print(row)
 # print(ciao)
+
+# lista_liste=[[4,2],[4,5],[7,8]]
+# list=[]
+# #i=0
+# for i, date in enumerate(lista_liste):
+#   print(date)
+#   #y=date[0]-(date[0]%2)
+#   for x in lista_liste:
+#     if x[0]%2==0:
+#       i+=1
+#     else: break
+#   date=lista_liste[i]
+
+# for i in range(10):
+#   if i%2==0:
+#     i+=3
+#   print(i)
+
+list=[[1,2],[2,3],[3,4],[4,7]]
+
+for i,x in enumerate(list):
+  for j,y in enumerate(list):
+    if i!=j and x[0]==y[0]:
+      raise Exception("DUPLICATO")
+
+    if i<j and x[0]>y[0]:
+      raise Exception("DISORDINE")
+    
+
+
+
